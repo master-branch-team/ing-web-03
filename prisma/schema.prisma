@@ -9,3 +9,26 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model LIKE {
+  id String @id @default(cuid())
+
+  //user    USER @relation(fields: [user_id], references: [id])
+  user_id String
+
+  //note    NOTE @relation(fields: [note_id], references: [id])
+  note_id String
+
+  creation_data DateTime @default(now())
+  update_date   DateTime @updatedAt
+}
+
+model COURSE {
+  id       String @id @default(cuid())
+  name     String
+  duration Int
+  link     String
+
+  creation_data DateTime @default(now())
+  update_date   DateTime @updatedAt
+}

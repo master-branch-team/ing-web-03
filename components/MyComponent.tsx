@@ -13,7 +13,10 @@ const MyComponent = () => {
       <h1>Data fetched with GraphQL</h1>
       <div className='flex gap-3'>
         {data.mockModelGetter.map((el: MockModel) => (
-          <div className='bg-gray-200 p-4 flex flex-col items-center rounded-lg shadow-lg'>
+          <div
+            className='bg-gray-200 p-4 flex flex-col items-center rounded-lg shadow-lg'
+            key={el.id}
+          >
             <span>{el.id}</span>
             <span>{el.name}</span>
             <span>{el.description}</span>
