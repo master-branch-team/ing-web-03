@@ -17,5 +17,5 @@ model USER_TYPE {
   creation_date DateTime @default(now())
   update_date   DateTime @updatedAt
 
-  // users User[]
+  // users USER[]
 }
