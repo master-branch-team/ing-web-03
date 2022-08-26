@@ -10,23 +10,32 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
-model COMMENT{
- id String @id @default(cuid())
- text String
- user_id String
- training_id String
- creation_date DateTime @default(now())
- update_date DateTime @updatedAt
-}
-
-model COURSE_STATE{
-  id          String @id @default(cuid())
-  is_completed Boolean
-  certificated Boolean
-  certificate_link String
+model LIKE {
+  id            String   @id @default(cuid())
+  //user    USER @relation(fields: [user_id], references: [id])
+  user_id       String
+  //note    NOTE @relation(fields: [note_id], references: [id])
+  note_id       String
   creation_date DateTime @default(now())
   update_date   DateTime @updatedAt
+}
+
+model COMMENT {
+  id            String   @id @default(cuid())
+  text          String
+  user_id       String
+  training_id   String
+  creation_date DateTime @default(now())
+  update_date   DateTime @updatedAt
+}
+
+model COURSE_STATE {
+  id               String   @id @default(cuid())
+  is_completed     Boolean
+  certificated     Boolean
+  certificate_link String
+  creation_date    DateTime @default(now())
+  update_date      DateTime @updatedAt
 }
 
 model TRAINING {
@@ -55,22 +64,27 @@ model USER {
   photo_link    String
   creation_date DateTime @default(now())
   update_date   DateTime @updatedAt
-
   position_id  String
   user_type_id String
 }
 
 model NOTE {
-  id   String @id @default(cuid())
-  text String
-
+  id            String   @id @default(cuid())
+  text          String
   //user    USER @relation(fields: [user_id], references: [id])
-  user_id String
-
+  user_id       String
   //course  COURSE @relation(fields: [course_id], references: [id])
-  course_id String
-
+  course_id     String
   creation_date DateTime @default(now())
+  update_date   DateTime @updatedAt
+}
+
+model COURSE {
+  id       String @id @default(cuid())
+  name     String
+  duration Int
+  link     String
+  creation_data DateTime @default(now())
   update_date   DateTime @updatedAt
 }
 
