@@ -9,15 +9,64 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
 model COURSE_STATE{
   id          String @id @default(cuid())
-  is_complete Boolean
-  certificate Boolean
+  is_completed Boolean
+  certificated Boolean
   certificate_link String
-
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
+  creation_date DateTime @default(now())
+  update_date   DateTime @updatedAt
 }
-    
 
+model TRAINING {
+  id            String   @id @default(cuid())
+  name          String
+  description   String
+  creation_date DateTime @default(now())
+  update_date   DateTime @updatedAt
+  // comments COMMENT[]
+}
+
+model USER_TYPE {
+  id            String   @id @default(cuid())
+  name          String
+  creation_date DateTime @default(now())
+  update_date   DateTime @updatedAt
+  // users USER[]
+}
+
+model USER {
+  id            String   @id @default(cuid())
+  email         String   @unique
+  full_name     String
+  phone         String
+  address       String
+  photo_link    String
+  creation_date DateTime @default(now())
+  update_date   DateTime @updatedAt
+
+  position_id  String
+  user_type_id String
+}
+
+model NOTE {
+  id   String @id @default(cuid())
+  text String
+
+  //user    USER @relation(fields: [user_id], references: [id])
+  user_id String
+
+  //course  COURSE @relation(fields: [course_id], references: [id])
+  course_id String
+
+  creation_date DateTime @default(now())
+  update_date   DateTime @updatedAt
+}
+
+model POSITION {
+  id            String   @id @default(cuid())
+  name          String
+  creation_date DateTime @default(now())
+  update_date   DateTime @updatedAt
+}
