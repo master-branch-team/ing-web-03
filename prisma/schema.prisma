@@ -10,6 +10,15 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model COURSE_STATE{
+  id          String @id @default(cuid())
+  is_completed Boolean
+  certificated Boolean
+  certificate_link String
+  creation_date DateTime @default(now())
+  update_date   DateTime @updatedAt
+}
+
 model TRAINING {
   id            String   @id @default(cuid())
   name          String
