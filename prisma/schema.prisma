@@ -9,3 +9,13 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model COMMENT{
+ id String @id @default(cuid())
+ text String
+ user_id String
+ training_id String
+
+ creation_date DateTime @default(now())
+ update_date DateTime
+}
