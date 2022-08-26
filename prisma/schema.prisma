@@ -23,3 +23,24 @@ model USER {
   position_id  String
   user_type_id String
 }
+ 
+model NOTE {
+  id   String @id @default(cuid())
+  text String
+
+  //user    USER @relation(fields: [user_id], references: [id])
+  user_id String
+
+  //course  COURSE @relation(fields: [course_id], references: [id])
+  course_id String
+
+  creation_date DateTime @default(now())
+  update_date   DateTime @updatedAt
+}
+
+model POSITION {
+  id            String   @id @default(cuid())
+  name          String
+  creation_date DateTime @default(now())
+  update_date   DateTime @updatedAt
+}
