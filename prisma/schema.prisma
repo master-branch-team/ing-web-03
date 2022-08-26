@@ -20,8 +20,8 @@ model TRAINING {
 }
 
 model USER_TYPE {
-  id   String @id @default(cuid())
-  name String
+  id            String   @id @default(cuid())
+  name          String
   creation_date DateTime @default(now())
   update_date   DateTime @updatedAt
   // users USER[]
@@ -60,5 +60,4 @@ model POSITION {
   name          String
   creation_date DateTime @default(now())
   update_date   DateTime @updatedAt
-  >>>>>>> develop
 }
