@@ -34,6 +34,8 @@ model COURSE_STATE {
   is_completed     Boolean
   certificated     Boolean
   certificate_link String
+  user_id          String
+  course_id        String
   creation_date    DateTime @default(now())
   update_date      DateTime @updatedAt
 }
