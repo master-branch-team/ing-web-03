@@ -34,7 +34,9 @@ model COURSE_STATE {
   is_completed     Boolean
   certificated     Boolean
   certificate_link String
+  user             USER     @relation(fields: [user_id], references: [id])
   user_id          String
+  course           COURSE   @relation(fields: [course_id], references: [id])
   course_id        String
   creation_date    DateTime @default(now())
   update_date      DateTime @updatedAt
@@ -70,6 +72,7 @@ model USER {
   position_id   String
   user_type     USER_TYPE @relation(fields: [user_type_id], references: [id])
   user_type_id  String
+  COURSE_STATE  COURSE_STATE[]
 }
 
 model NOTE {
@@ -84,12 +87,13 @@ model NOTE {
 }
 
 model COURSE {
-  id            String   @id @default(cuid())
+  id            String         @id @default(cuid())
   name          String
   duration      Int
   link          String
-  creation_data DateTime @default(now())
-  update_date   DateTime @updatedAt
+  creation_data DateTime       @default(now())
+  update_date   DateTime       @updatedAt
+  COURSE_STATE  COURSE_STATE[]
 }
 
 model POSITION {
