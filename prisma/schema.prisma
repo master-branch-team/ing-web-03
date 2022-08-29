@@ -104,7 +104,7 @@ model COURSE {
 model POSITION {
   id            String   @id @default(cuid())
   name          String
-  user          USER[]
+  users          USER[]
 
   creation_date DateTime @default(now())
   update_date   DateTime @updatedAt
