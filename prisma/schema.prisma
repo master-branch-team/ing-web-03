@@ -54,20 +54,22 @@ model USER_TYPE {
   name          String
   creation_date DateTime @default(now())
   update_date   DateTime @updatedAt
-  // users USER[]
+  users         USER[]
 }
 
 model USER {
-  id            String   @id @default(cuid())
-  email         String   @unique
+  id            String    @id @default(cuid())
+  email         String    @unique
   full_name     String
   phone         String
   address       String
   photo_link    String
-  creation_date DateTime @default(now())
-  update_date   DateTime @updatedAt
-  position_id  String
-  user_type_id String
+  creation_date DateTime  @default(now())
+  update_date   DateTime  @updatedAt
+  position      POSITION  @relation(fields: [position_id], references: [id])
+  position_id   String
+  user_type     USER_TYPE @relation(fields: [user_type_id], references: [id])
+  user_type_id  String
 }
 
 model NOTE {
@@ -82,10 +84,10 @@ model NOTE {
 }
 
 model COURSE {
-  id       String @id @default(cuid())
-  name     String
-  duration Int
-  link     String
+  id            String   @id @default(cuid())
+  name          String
+  duration      Int
+  link          String
   creation_data DateTime @default(now())
   update_date   DateTime @updatedAt
 }
@@ -95,4 +97,5 @@ model POSITION {
   name          String
   creation_date DateTime @default(now())
   update_date   DateTime @updatedAt
+  users         USER[]
 }
