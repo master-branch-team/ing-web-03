@@ -13,9 +13,9 @@ datasource db {
 
 model LIKE {
   id            String   @id @default(cuid())
-  //user    USER @relation(fields: [user_id], references: [id])
+  user    USER @relation(fields: [user_id], references: [id])
   user_id       String
-  //note    NOTE @relation(fields: [note_id], references: [id])
+  note    NOTE @relation(fields: [note_id], references: [id])
   note_id       String
   creation_date DateTime @default(now())
   update_date   DateTime @updatedAt
@@ -24,7 +24,9 @@ model LIKE {
 model COMMENT {
   id            String   @id @default(cuid())
   text          String
+  user          USER     @relation(fields: [user_id], references: [id])
   user_id       String
+  training      TRAINING @relation(fields: [training_id], references: [id])
   training_id   String
   creation_date DateTime @default(now())
   update_date   DateTime @updatedAt
@@ -35,19 +37,21 @@ model COURSE_STATE {
   is_completed     Boolean
   certificated     Boolean
   certificate_link String
+  user             USER     @relation(fields: [user_id], references: [id])
   user_id          String
+  course           COURSE   @relation(fields: [course_id], references: [id])
   course_id        String
   creation_date    DateTime @default(now())
   update_date      DateTime @updatedAt
 }
 
 model TRAINING {
-  id            String   @id @default(cuid())
+  id            String    @id @default(cuid())
   name          String
   description   String
-  creation_date DateTime @default(now())
-  update_date   DateTime @updatedAt
-  // comments COMMENT[]
+  creation_date DateTime  @default(now())
+  update_date   DateTime  @updatedAt
+  comments      COMMENT[]
 }
 
 model USER_TYPE {
@@ -55,12 +59,12 @@ model USER_TYPE {
   name          String
   creation_date DateTime @default(now())
   update_date   DateTime @updatedAt
-  users USER[]
+  users         USER[]
 }
 
 model USER {
-  id            String   @id @default(cuid())
-  email         String   @unique
+  id            String         @id @default(cuid())
+  email         String         @unique
   full_name     String
   phone         String
   address       String
@@ -75,30 +79,29 @@ model USER {
   likes          LIKE[]
   trainings      TRAINING[]
 
-
   creation_date DateTime @default(now())
   update_date   DateTime @updatedAt
- 
 }
 
 model NOTE {
   id            String   @id @default(cuid())
   text          String
-  //user    USER @relation(fields: [user_id], references: [id])
+  user    USER @relation(fields: [user_id], references: [id])
   user_id       String
-  //course  COURSE @relation(fields: [course_id], references: [id])
+  course  COURSE @relation(fields: [course_id], references: [id])
   course_id     String
   creation_date DateTime @default(now())
   update_date   DateTime @updatedAt
 }
 
 model COURSE {
-  id       String @id @default(cuid())
-  name     String
-  duration Int
-  link     String
-  creation_data DateTime @default(now())
-  update_date   DateTime @updatedAt
+  id            String         @id @default(cuid())
+  name          String
+  duration      Int
+  link          String
+  creation_data DateTime       @default(now())
+  update_date   DateTime       @updatedAt
+  COURSE_STATE  COURSE_STATE[]
 }
 
 model POSITION {
@@ -108,4 +111,5 @@ model POSITION {
 
   creation_date DateTime @default(now())
   update_date   DateTime @updatedAt
+  users         USER[]
 }
