@@ -12,9 +12,9 @@ datasource db {
 
 model LIKE {
   id            String   @id @default(cuid())
-  //user    USER @relation(fields: [user_id], references: [id])
+  user    USER @relation(fields: [user_id], references: [id])
   user_id       String
-  //note    NOTE @relation(fields: [note_id], references: [id])
+  note    NOTE @relation(fields: [note_id], references: [id])
   note_id       String
   creation_date DateTime @default(now())
   update_date   DateTime @updatedAt
@@ -81,9 +81,9 @@ model USER {
 model NOTE {
   id            String   @id @default(cuid())
   text          String
-  //user    USER @relation(fields: [user_id], references: [id])
+  user    USER @relation(fields: [user_id], references: [id])
   user_id       String
-  //course  COURSE @relation(fields: [course_id], references: [id])
+  course  COURSE @relation(fields: [course_id], references: [id])
   course_id     String
   creation_date DateTime @default(now())
   update_date   DateTime @updatedAt
