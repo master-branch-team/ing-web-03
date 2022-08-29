@@ -35,9 +35,7 @@ model COURSE_STATE {
   certificated     Boolean
   certificate_link String
   user             USER     @relation(fields: [user_id], references: [id])
-  user             USER     @relation(fields: [user_id], references: [id])
   user_id          String
-  course           COURSE   @relation(fields: [course_id], references: [id])
   course           COURSE   @relation(fields: [course_id], references: [id])
   course_id        String
   creation_date    DateTime @default(now())
@@ -62,17 +60,17 @@ model USER_TYPE {
 }
 
 model USER {
-  id            String    @id @default(cuid())
-  email         String    @unique
+  id            String         @id @default(cuid())
+  email         String         @unique
   full_name     String
   phone         String
   address       String
   photo_link    String
-  creation_date DateTime  @default(now())
-  update_date   DateTime  @updatedAt
-  position      POSITION  @relation(fields: [position_id], references: [id])
+  creation_date DateTime       @default(now())
+  update_date   DateTime       @updatedAt
+  position      POSITION       @relation(fields: [position_id], references: [id])
   position_id   String
-  user_type     USER_TYPE @relation(fields: [user_type_id], references: [id])
+  user_type     USER_TYPE      @relation(fields: [user_type_id], references: [id])
   user_type_id  String
   COURSE_STATE  COURSE_STATE[]
 }
@@ -89,13 +87,12 @@ model NOTE {
 }
 
 model COURSE {
-  id                 String                 @id @default(cuid())
-  name               String
-  duration           Int
-  link               String
-  creation_data DateTime             @default(now())
-  update_date   DateTime             @updatedAt
-  COURSE_STATE  COURSE_STATE[]
+  id            String         @id @default(cuid())
+  name          String
+  duration      Int
+  link          String
+  creation_data DateTime       @default(now())
+  update_date   DateTime       @updatedAt
   COURSE_STATE  COURSE_STATE[]
 }
 
