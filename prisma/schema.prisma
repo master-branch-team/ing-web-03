@@ -1,3 +1,4 @@
+
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
@@ -68,14 +69,18 @@ model USER {
   phone         String
   address       String
   photo_link    String
-  creation_date DateTime       @default(now())
-  update_date   DateTime       @updatedAt
-  position      POSITION       @relation(fields: [position_id], references: [id])
+  position      POSITION @relation(fields: [position_id], references: [id])
   position_id   String
-  user_type     USER_TYPE      @relation(fields: [user_type_id], references: [id])
+  user_type     USER_TYPE @relation(fields: [user_type_id], references: [id])
   user_type_id  String
-  COURSE_STATE  COURSE_STATE[]
-  comments      COMMENT[]
+  course_states COURSE_STATE[] 
+  comments       COMMENT[]
+  notes          NOTE[]
+  likes          LIKE[]
+  trainings      TRAINING[]
+
+  creation_date DateTime @default(now())
+  update_date   DateTime @updatedAt
 }
 
 model NOTE {
@@ -102,6 +107,8 @@ model COURSE {
 model POSITION {
   id            String   @id @default(cuid())
   name          String
+  users          USER[]
+
   creation_date DateTime @default(now())
   update_date   DateTime @updatedAt
   users         USER[]
