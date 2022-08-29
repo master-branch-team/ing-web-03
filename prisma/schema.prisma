@@ -1,4 +1,3 @@
-
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
@@ -11,105 +10,125 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model LIKE {
-  id            String   @id @default(cuid())
-  user    USER @relation(fields: [user_id], references: [id])
-  user_id       String
-  note    NOTE @relation(fields: [note_id], references: [id])
-  note_id       String
-  creation_date DateTime @default(now())
-  update_date   DateTime @updatedAt
-}
-
-model COMMENT {
-  id            String   @id @default(cuid())
-  text          String
-  user          USER     @relation(fields: [user_id], references: [id])
-  user_id       String
-  training      TRAINING @relation(fields: [training_id], references: [id])
-  training_id   String
-  creation_date DateTime @default(now())
-  update_date   DateTime @updatedAt
-}
-
-model COURSE_STATE {
-  id               String   @id @default(cuid())
-  is_completed     Boolean
-  certificated     Boolean
-  certificate_link String
-  user             USER     @relation(fields: [user_id], references: [id])
-  user_id          String
-  course           COURSE   @relation(fields: [course_id], references: [id])
-  course_id        String
-  creation_date    DateTime @default(now())
-  update_date      DateTime @updatedAt
-}
-
-model TRAINING {
-  id            String    @id @default(cuid())
-  name          String
-  description   String
-  creation_date DateTime  @default(now())
-  update_date   DateTime  @updatedAt
-  comments      COMMENT[]
-}
-
-model USER_TYPE {
-  id            String   @id @default(cuid())
-  name          String
-  creation_date DateTime @default(now())
-  update_date   DateTime @updatedAt
-  users         USER[]
-}
-
 model USER {
-  id            String         @id @default(cuid())
-  email         String         @unique
-  full_name     String
-  phone         String
-  address       String
-  photo_link    String
-  position      POSITION @relation(fields: [position_id], references: [id])
+  id         String @id @default(cuid())
+  email      String @unique
+  full_name  String
+  phone      String
+  address    String
+  photo_link String
+
+  creation_date DateTime @default(now())
+  update_date   DateTime @updatedAt
+
+  position      POSITION       @relation(fields: [position_id], references: [id])
   position_id   String
-  user_type     USER_TYPE @relation(fields: [user_type_id], references: [id])
+  user_type     USER_TYPE      @relation(fields: [user_type_id], references: [id])
   user_type_id  String
-  course_states COURSE_STATE[] 
-  comments       COMMENT[]
-  notes          NOTE[]
-  likes          LIKE[]
-  trainings      TRAINING[]
-
-  creation_date DateTime @default(now())
-  update_date   DateTime @updatedAt
-}
-
-model NOTE {
-  id            String   @id @default(cuid())
-  text          String
-  user    USER @relation(fields: [user_id], references: [id])
-  user_id       String
-  course  COURSE @relation(fields: [course_id], references: [id])
-  course_id     String
-  creation_date DateTime @default(now())
-  update_date   DateTime @updatedAt
-}
-
-model COURSE {
-  id            String         @id @default(cuid())
-  name          String
-  duration      Int
-  link          String
-  creation_data DateTime       @default(now())
-  update_date   DateTime       @updatedAt
-  COURSE_STATE  COURSE_STATE[]
+  course_states COURSE_STATE[]
+  notes         NOTE[]
+  comments      COMMENT[]
+  likes         LIKE[]
+  trainings     TRAINING[]
 }
 
 model POSITION {
-  id            String   @id @default(cuid())
-  name          String
-  users          USER[]
+  id   String @id @default(cuid())
+  name String
 
   creation_date DateTime @default(now())
   update_date   DateTime @updatedAt
-  users         USER[]
+
+  users USER[]
+}
+
+model USER_TYPE {
+  id   String @id @default(cuid())
+  name String
+
+  creation_date DateTime @default(now())
+  update_date   DateTime @updatedAt
+
+  users USER[]
+}
+
+model NOTE {
+  id   String @id @default(cuid())
+  text String
+
+  creation_date DateTime @default(now())
+  update_date   DateTime @updatedAt
+
+  user      USER   @relation(fields: [user_id], references: [id])
+  user_id   String
+  course    COURSE @relation(fields: [course_id], references: [id])
+  course_id String
+  likes     LIKE[]
+}
+
+model COMMENT {
+  id   String @id @default(cuid())
+  text String
+
+  creation_date DateTime @default(now())
+  update_date   DateTime @updatedAt
+
+  user        USER     @relation(fields: [user_id], references: [id])
+  user_id     String
+  training    TRAINING @relation(fields: [training_id], references: [id])
+  training_id String
+}
+
+model LIKE {
+  id String @id @default(cuid())
+
+  creation_date DateTime @default(now())
+  update_date   DateTime @updatedAt
+
+  user    USER   @relation(fields: [user_id], references: [id])
+  user_id String
+  note    NOTE   @relation(fields: [note_id], references: [id])
+  note_id String
+}
+
+model COURSE {
+  id       String @id @default(cuid())
+  name     String
+  duration Int
+  link     String
+
+  creation_data DateTime @default(now())
+  update_date   DateTime @updatedAt
+
+  trainings     TRAINING[]
+  course_states COURSE_STATE[]
+  notes         NOTE[]
+}
+
+model TRAINING {
+  id          String @id @default(cuid())
+  name        String
+  description String
+
+  creation_date DateTime @default(now())
+  update_date   DateTime @updatedAt
+
+  courses  COURSE[]
+  users    USER[]
+  comments COMMENT[]
+}
+
+model COURSE_STATE {
+  id               String  @id @default(cuid())
+  is_completed     Boolean
+  certificated     Boolean
+  certificate_link String
+
+  creation_date DateTime @default(now())
+  update_date   DateTime @updatedAt
+
+  user      USER   @relation(fields: [user_id], references: [id])
+  user_id   String
+  course    COURSE @relation(fields: [course_id], references: [id])
+  course_id String
 }
