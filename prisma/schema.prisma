@@ -64,10 +64,20 @@ model USER {
   phone         String
   address       String
   photo_link    String
+  position      POSITION @relation(fields: [position_id], references: [id])
+  position_id   String
+  user_type     USER_TYPE @relation(fields: [user_type_id], references: [id])
+  user_type_id  String
+  course_states COURSE_STATE[] 
+  comment       COMMENT[]
+  note          NOTE[]
+  like          LIKE[]
+  training      TRAINING[]
+
+
   creation_date DateTime @default(now())
   update_date   DateTime @updatedAt
-  position_id  String
-  user_type_id String
+ 
 }
 
 model NOTE {
@@ -93,6 +103,7 @@ model COURSE {
 model POSITION {
   id            String   @id @default(cuid())
   name          String
+
   creation_date DateTime @default(now())
   update_date   DateTime @updatedAt
 }
