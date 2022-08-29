@@ -23,7 +23,9 @@ model LIKE {
 model COMMENT {
   id            String   @id @default(cuid())
   text          String
+  user          USER     @relation(fields: [user_id], references: [id])
   user_id       String
+  training      TRAINING @relation(fields: [training_id], references: [id])
   training_id   String
   creation_date DateTime @default(now())
   update_date   DateTime @updatedAt
@@ -43,12 +45,12 @@ model COURSE_STATE {
 }
 
 model TRAINING {
-  id            String   @id @default(cuid())
+  id            String    @id @default(cuid())
   name          String
   description   String
-  creation_date DateTime @default(now())
-  update_date   DateTime @updatedAt
-  // comments COMMENT[]
+  creation_date DateTime  @default(now())
+  update_date   DateTime  @updatedAt
+  comments      COMMENT[]
 }
 
 model USER_TYPE {
@@ -73,6 +75,7 @@ model USER {
   user_type     USER_TYPE      @relation(fields: [user_type_id], references: [id])
   user_type_id  String
   COURSE_STATE  COURSE_STATE[]
+  comments      COMMENT[]
 }
 
 model NOTE {
