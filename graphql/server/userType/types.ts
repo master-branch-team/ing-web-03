@@ -1,10 +1,10 @@
 import { gql } from 'apollo-server-micro';
 
 const UserTypeTypes = gql`
-  type USER_TYPE {
+  type UserType {
     id: ID
     name: String
-    users: [USER]
+    users: [User]
   }
 
   input UserTypeCreateInput {
@@ -17,13 +17,13 @@ const UserTypeTypes = gql`
   }
 
   type Query {
-    getUserType(id: String): USER_TYPE
-    getAllUserTypes: [USER_TYPE]
+    getUserType(id: String): UserType
+    getAllUserTypes: [UserType]
   }
   type Mutation {
-    createUserType(data: UserTypeCreateInput): USER_TYPE
-    updateUserType(data: UserTypeUpdateInput): USER_TYPE
-    # deleteUserType(id: String): USER_TYPE ----> No se implementa por conflictos de claves foráneas
+    createUserType(data: UserTypeCreateInput): UserType
+    updateUserType(data: UserTypeUpdateInput): UserType
+    # deleteUserType(id: String): UserType ----> No se implementa por conflictos de claves foráneas
   }
 `;
 
