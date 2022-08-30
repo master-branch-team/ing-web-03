@@ -1,6 +1,6 @@
 import { DocumentNode } from 'graphql';
 import { gql } from 'apollo-server-micro';
-import { model1Types } from '@graphql/server/model1/types';
+import { CourseTypes } from '@graphql/server/course/types';
 
 const CommonTypes = gql`
   scalar Date
@@ -8,10 +8,7 @@ const CommonTypes = gql`
 
 const GlobalTypes: DocumentNode[] = [
   CommonTypes,
-  model1Types,
-  model1Types,
-  model1Types,
-  model1Types,
+  CourseTypes,
 ];
 
 export { GlobalTypes };

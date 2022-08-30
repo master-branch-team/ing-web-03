@@ -97,7 +97,7 @@ model COURSE {
   duration Int
   link     String
 
-  creation_data DateTime @default(now())
+  creation_date DateTime @default(now())
   update_date   DateTime @updatedAt
 
   trainings     TRAINING[]
