@@ -10,7 +10,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model USER {
+model User {
   id         String @id @default(cuid())
   email      String @unique
   full_name  String
@@ -21,77 +21,77 @@ model USER {
   creation_date DateTime @default(now())
   update_date   DateTime @updatedAt
 
-  position      POSITION       @relation(fields: [position_id], references: [id])
+  position      Position      @relation(fields: [position_id], references: [id])
   position_id   String
-  user_type     USER_TYPE      @relation(fields: [user_type_id], references: [id])
+  user_type     UserType      @relation(fields: [user_type_id], references: [id])
   user_type_id  String
-  course_states COURSE_STATE[]
-  notes         NOTE[]
-  comments      COMMENT[]
-  likes         LIKE[]
-  trainings     TRAINING[]
+  course_states CourseState[]
+  notes         Note[]
+  comments      Comment[]
+  likes         Like[]
+  trainings     Training[]
 }
 
-model POSITION {
+model Position {
   id   String @id @default(cuid())
   name String
 
   creation_date DateTime @default(now())
   update_date   DateTime @updatedAt
 
-  users USER[]
+  users User[]
 }
 
-model USER_TYPE {
+model UserType {
   id   String @id @default(cuid())
   name String
 
   creation_date DateTime @default(now())
   update_date   DateTime @updatedAt
 
-  users USER[]
+  users User[]
 }
 
-model NOTE {
+model Note {
   id   String @id @default(cuid())
   text String
 
   creation_date DateTime @default(now())
   update_date   DateTime @updatedAt
 
-  user      USER   @relation(fields: [user_id], references: [id])
+  user      User   @relation(fields: [user_id], references: [id])
   user_id   String
-  course    COURSE @relation(fields: [course_id], references: [id])
+  course    Course @relation(fields: [course_id], references: [id])
   course_id String
-  likes     LIKE[]
+  likes     Like[]
 }
 
-model COMMENT {
+model Comment {
   id   String @id @default(cuid())
   text String
 
   creation_date DateTime @default(now())
   update_date   DateTime @updatedAt
 
-  user        USER     @relation(fields: [user_id], references: [id])
+  user        User     @relation(fields: [user_id], references: [id])
   user_id     String
-  training    TRAINING @relation(fields: [training_id], references: [id])
+  training    Training @relation(fields: [training_id], references: [id])
   training_id String
 }
 
-model LIKE {
+model Like {
   id String @id @default(cuid())
 
   creation_date DateTime @default(now())
   update_date   DateTime @updatedAt
 
-  user    USER   @relation(fields: [user_id], references: [id])
+  user    User   @relation(fields: [user_id], references: [id])
   user_id String
-  note    NOTE   @relation(fields: [note_id], references: [id])
+  note    Note   @relation(fields: [note_id], references: [id])
   note_id String
 }
 
-model COURSE {
+model Course {
   id       String @id @default(cuid())
   name     String
   duration Int
@@ -100,12 +100,12 @@ model COURSE {
   creation_date DateTime @default(now())
   update_date   DateTime @updatedAt
 
-  trainings     TRAINING[]
-  course_states COURSE_STATE[]
-  notes         NOTE[]
+  trainings     Training[]
+  course_states CourseState[]
+  notes         Note[]
 }
 
-model TRAINING {
+model Training {
   id          String @id @default(cuid())
   name        String
   description String
@@ -113,12 +113,12 @@ model TRAINING {
   creation_date DateTime @default(now())
   update_date   DateTime @updatedAt
 
-  courses  COURSE[]
-  users    USER[]
-  comments COMMENT[]
+  courses  Course[]
+  users    User[]
+  comments Comment[]
 }
 
-model COURSE_STATE {
+model CourseState {
   id               String  @id @default(cuid())
   is_completed     Boolean
   certificated     Boolean
@@ -127,8 +127,8 @@ model COURSE_STATE {
   creation_date DateTime @default(now())
   update_date   DateTime @updatedAt
 
-  user      USER   @relation(fields: [user_id], references: [id])
+  user      User   @relation(fields: [user_id], references: [id])
   user_id   String
-  course    COURSE @relation(fields: [course_id], references: [id])
+  course    Course @relation(fields: [course_id], references: [id])
   course_id String
 }
