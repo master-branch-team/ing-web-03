@@ -6,6 +6,12 @@ const CommonTypes = gql`
   scalar Date
 `;
 
-const globalTypes: DocumentNode[] = [CommonTypes, model1Types];
+const GlobalTypes: DocumentNode[] = [
+  CommonTypes,
+  model1Types,
+  model1Types,
+  model1Types,
+  model1Types,
+];
 
-export { globalTypes };
+export { GlobalTypes };
