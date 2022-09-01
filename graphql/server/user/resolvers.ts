@@ -18,7 +18,7 @@ const UserResolvers: Resolver = {
   },
   Mutation: {
     createUser: async (parent, args) => {
-      const user = await prisma.user.create({
+      const newUser = await prisma.user.create({
         // data: {
         //   ...args.data,
         // },
@@ -40,9 +40,19 @@ const UserResolvers: Resolver = {
           },
         },
       });
-      return user;
+      return newUser;
     },
-    updateUser: async (parent, args) => {},
+    updateUser: async (parent, args) => {
+      const updatedUser = await prisma.user.update({
+        where: {
+          id: args.id,
+        },
+        data: {
+          ...args.data,
+        },
+      });
+      return updatedUser;
+    },
     deleteUser: async (parent, args) => {},
   },
 };

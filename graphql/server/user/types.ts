@@ -23,8 +23,8 @@ const UserTypes = gql`
     phone: String!
     address: String!
     photo_link: String!
-    position_id: String #¿El campo debería ser 'position' o 'position_id'?
-    user_type_id: String! #¿El campo debería ser 'user_type' o 'user_type_id'?
+    position_id: String! 
+    user_type_id: String! 
   }
 
   input UserUpdateInput {
