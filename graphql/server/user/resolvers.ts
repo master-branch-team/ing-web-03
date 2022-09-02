@@ -6,7 +6,7 @@ const UserResolvers: Resolver = {
     position: async (parent, args) => {
       const position = await prisma.position.findUnique({
         where: {
-          id: parent.position_id, // Comprobar funcionamiento (No se pudo usar equals)[1:1]
+          id: parent.position_id,
         },
       });
       return position;
@@ -14,7 +14,7 @@ const UserResolvers: Resolver = {
     user_type: async (parent, args) => {
       const userType = await prisma.userType.findUnique({
         where: {
-          id: parent.user_type_id, // Comprobar funcionamiento (No se pudo usar equals)[1:1]
+          id: parent.user_type_id,
         },
       });
       return userType;
