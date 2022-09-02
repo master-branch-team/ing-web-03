@@ -12,7 +12,7 @@ const PositionTypes = gql`
   }
 
   input PositionUpdateInput {
-    name: String
+    name: String!
   }
 
   type Query {
