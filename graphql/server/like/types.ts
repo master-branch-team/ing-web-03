@@ -24,7 +24,7 @@ const LikeTypes = gql`
 
   type Mutation {
     createLike(data: LikeCreateInput): Like
-    updateLike(data: LikeUpdateInput): Like
+    updateLike(id: String, data: LikeUpdateInput): Like
     deleteLike(id: String): Like
   }
 `;
