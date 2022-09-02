@@ -34,7 +34,7 @@ model User {
 
 model Position {
   id   String @id @default(cuid())
-  name String
+  name String @unique
 
   creation_date DateTime @default(now())
   update_date   DateTime @updatedAt
@@ -44,7 +44,7 @@ model Position {
 
 model UserType {
   id   String @id @default(cuid())
-  name String
+  name String @unique
 
   creation_date DateTime @default(now())
   update_date   DateTime @updatedAt
@@ -93,7 +93,7 @@ model Like {
 
 model Course {
   id       String @id @default(cuid())
-  name     String
+  name     String @unique
   duration Int
   link     String
 
