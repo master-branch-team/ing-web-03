@@ -1,26 +1,36 @@
-import {gql} from 'apollo-server-micro';
+import { gql } from 'apollo-server-micro';
 
 const NoteTypes = gql`
-    type Note {
-        id: ID
-        text: String
-        likes: [Like]
-    }
-    input NoteCreateInput {
-        text: String
+  type Note {
+    id: ID
+    text: String
+    user: User
+    course: Course
+    likes: [Like]
+  }
 
-    }
-    input NoteUpdateInput {
-        text: String
-    }
-    type Query {
-        getNote(id: string): Note
-        getNotes: [Note]
-    }
-    type Mutation {
-        createNote(data: NoteCreateInput): Note
-        updateNote(id: string, data: NoteUpdateInput): Note
-        deleteNote(id: string): Note
+  input NoteCreateInput {
+    user_id: String!
+    course_id: String!
+    text: String!
+  }
 
+  input NoteUpdateInput {
+    user_id: String
+    course_id: String
+    text: String
+  }
+
+  type Query {
+    getNote(id: String): Note
+    getNotes: [Note]
+  }
+
+  type Mutation {
+    createNote(data: NoteCreateInput): Note
+    updateNote(id: String, data: NoteUpdateInput): Note
+    deleteNote(id: String): Note
+  }
 `;
-export {NoteTypes};
+
+export { NoteTypes };
