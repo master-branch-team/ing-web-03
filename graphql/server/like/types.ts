@@ -3,8 +3,8 @@ import { gql } from 'apollo-server-micro';
 const LikeTypes = gql`
   type Like {
     id: ID
-    user_id: String
-    note_id: String
+    user: User
+    note: Note
   }
 
   input LikeCreateInput {
@@ -19,8 +19,9 @@ const LikeTypes = gql`
 
   type Query {
     getLike(id: String): Like
-    getAllLikes: [Like]
+    getLikes: [Like]
   }
+
   type Mutation {
     createLike(data: LikeCreateInput): Like
     updateLike(data: LikeUpdateInput): Like
