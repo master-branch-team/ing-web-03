@@ -5,24 +5,29 @@ const TrainingTypes = gql`
     id: ID
     name: String
     description: String
-    courses: [COURSE]
-    users: [USER]
-    comments: [COMMENT]
+    courses: [Course]
+    users: [User]
+    comments: [Comment]
   }
 
-  input TrainingCreationInput {
+  input TrainingCreateInput {
+    name: String!
+    description: String!
+  }
+
+  input TrainingUpdateInput {
     name: String
     description: String
   }
 
   type Query {
+    getTraining(id: String): Training
     getTrainings: [Training]
-    getTraining(email: String): Training
   }
 
   type Mutation {
     createTraining(data: TrainingCreationInput): Training
-    updateTraining(id: String, data: TrainingCreationInput): Training
+    updateTraining(id: String, data: TrainingUpdateInput): Training
     deleteTraining(id: String): Training
   }
 `;

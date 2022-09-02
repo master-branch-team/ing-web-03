@@ -13,8 +13,6 @@ const GlobalTypes: DocumentNode[] = [
   CourseTypes,
   TrainingTypes,
   model1Types,
-  model1Types,
-  model1Types,
 ];
 
 export { GlobalTypes };
