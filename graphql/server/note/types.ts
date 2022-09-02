@@ -10,15 +10,15 @@ const NoteTypes = gql`
   }
 
   input NoteCreateInput {
+    text: String!
     user_id: String!
     course_id: String!
-    text: String!
   }
 
   input NoteUpdateInput {
+    text: String
     user_id: String
     course_id: String
-    text: String
   }
 
   type Query {
