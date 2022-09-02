@@ -23,22 +23,22 @@ const UserTypeResolvers: Resolver = {
       });
       return userType;
     },
-    getAllUserTypes: async (parent, args) => {
+    getUserTypes: async (parent, args) => {
       const userTypes = await prisma.userType.findMany();
       return userTypes;
     },
   },
   Mutation: {
     createUserType: async (parent, args) => {
-      const userType = await prisma.userType.create({
+      const newUserType = await prisma.userType.create({
         data: {
           name: args.data.name,
         },
       });
-      return userType;
+      return newUserType;
     },
     updateUserType: async (parent, args) => {
-      const userType = await prisma.userType.update({
+      const updatedUserType = await prisma.userType.update({
         where: {
           id: args.data.id,
         },
@@ -48,7 +48,15 @@ const UserTypeResolvers: Resolver = {
           },
         },
       });
-      return userType;
+      return updatedUserType;
+    },
+    deleteUserType: async (parent, args) => {
+      const deletedUserType = await prisma.userType.delete({
+        where: {
+          id: args.id,
+        },
+      });
+      return deletedUserType;
     },
   },
 };
