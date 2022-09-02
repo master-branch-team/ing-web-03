@@ -23,17 +23,23 @@ const UserTypes = gql`
     phone: String!
     address: String!
     photo_link: String!
-    position_id: String! 
-    user_type_id: String! 
+    position_id: String!
+    user_type_id: String!
   }
 
   input UserUpdateInput {
-    #Falta por definir
+    email: String
+    full_name: String
+    phone: String
+    address: String
+    photo_link: String
+    position_id: String
+    user_type_id: String
   }
 
   type Query {
     getUser(id: String): User
-    getAllUsers: [User]
+    getUsers: [User]
   }
   type Mutation {
     createUser(data: UserCreateInput): User

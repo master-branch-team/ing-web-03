@@ -2,7 +2,7 @@ import prisma from '@config/prisma';
 import { Resolver } from 'types';
 
 const UserResolvers: Resolver = {
-  position: {
+  User: {
     position: async (parent, args) => {
       const position = await prisma.position.findUnique({
         where: {
@@ -11,8 +11,6 @@ const UserResolvers: Resolver = {
       });
       return position;
     },
-  },
-  user_type: {
     user_type: async (parent, args) => {
       const userType = await prisma.userType.findUnique({
         where: {
@@ -21,8 +19,6 @@ const UserResolvers: Resolver = {
       });
       return userType;
     },
-  },
-  course_states: {
     course_states: async (parent, args) => {
       const courseStates = await prisma.courseState.findMany({
         where: {
@@ -33,8 +29,6 @@ const UserResolvers: Resolver = {
       });
       return courseStates;
     },
-  },
-  notes: {
     notes: async (parent, args) => {
       const notes = await prisma.note.findMany({
         where: {
@@ -45,8 +39,6 @@ const UserResolvers: Resolver = {
       });
       return notes;
     },
-  },
-  comments: {
     comments: async (parent, args) => {
       const comments = await prisma.comment.findMany({
         where: {
@@ -57,8 +49,6 @@ const UserResolvers: Resolver = {
       });
       return comments;
     },
-  },
-  likes: {
     likes: async (parent, args) => {
       const likes = await prisma.like.findMany({
         where: {
@@ -69,10 +59,17 @@ const UserResolvers: Resolver = {
       });
       return likes;
     },
-  },
-  trainings: {
     trainings: async (parent, args) => {
-      // Hay que contemplar la tabla intermedia
+      const trainings = await prisma.training.findMany({
+        where: {
+          users: {
+            some: {
+              id: parent.id,
+            },
+          },
+        },
+      });
+      return trainings;
     },
   },
   Query: {
@@ -84,7 +81,7 @@ const UserResolvers: Resolver = {
       });
       return user;
     },
-    getAllUsers: async (parent, args) => {
+    getUsers: async (parent, args) => {
       const users = await prisma.user.findMany();
       return users;
     },
@@ -126,7 +123,14 @@ const UserResolvers: Resolver = {
       });
       return updatedUser;
     },
-    deleteUser: async (parent, args) => {},
+    deleteUser: async (parent, args) => {
+      const deletedUser = await prisma.user.delete({
+        where: {
+          id: args.id,
+        },
+      });
+      return deletedUser;
+    },
   },
 };
 
