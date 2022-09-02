@@ -44,7 +44,7 @@ model Position {
 
 model UserType {
   id   String @id @default(cuid())
-  name String
+  name String @unique
 
   creation_date DateTime @default(now())
   update_date   DateTime @updatedAt
