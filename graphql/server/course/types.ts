@@ -15,18 +15,12 @@ const CourseTypes = gql`
     name: String!
     duration: Int!
     link: String!
-    # trainings: [Training] Ni idea de por qué estos campos ponen problema, hay que verlo
-    # course_states: [CourseState]
-    # notes: [Note]
   }
 
   input CourseUpdateInput {
     name: String
     duration: Int
     link: String
-    # trainings: [Training] Ni idea de por qué estos campos ponen problema, hay que verlo
-    # course_states: [CourseState]
-    # notes: [Note]
   }
 
   type Query {
@@ -35,7 +29,7 @@ const CourseTypes = gql`
   }
   type Mutation {
     createCourse(data: CourseCreateInput): Course
-    updateCourse(data: CourseUpdateInput): Course
+    updateCourse(id: String, data: CourseUpdateInput): Course
     deleteCourse(id: String): Course
   }
 `;
