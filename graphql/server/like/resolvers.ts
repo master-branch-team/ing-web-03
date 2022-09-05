@@ -30,7 +30,7 @@ const LikeResolvers: Resolver = {
       });
       return like;
     },
-    getlikes: async (parent, args) => {
+    getLikes: async (parent, args) => {
       const likes = await prisma.like.findMany();
       return likes;
     },
