@@ -2,7 +2,24 @@ import prisma from '@config/prisma';
 import { Resolver } from 'types';
 
 const CourseStateResolvers: Resolver = {
-  CourseState: {},
+  CourseState: {
+    course: async (parent, args) => {
+      const course = await prisma.course.findUnique({
+        where: {
+          id: parent.course_id,
+        },
+      });
+      return course;
+    },
+    user: async (parent, args) => {
+      const user = await prisma.user.findUnique({
+        where: {
+          id: parent.user_id,
+        },
+      });
+      return user;
+    },
+  },
   Query: {
     getCourseState: async (parent, args) => {
       const courseState = await prisma.courseState.findUnique({
