@@ -26,9 +26,11 @@ const TrainingTypes = gql`
   }
 
   type Mutation {
-    createTraining(data: TrainingCreateInput): Training
+    createTraining(data: TrainingCreateInput, courses_ids: [String]): Training
     updateTraining(id: String, data: TrainingUpdateInput): Training
     deleteTraining(id: String): Training
+    addCourses(id: String, courses_ids: [String]): Training
+    removeCourses(id: String, courses_ids: [String]): Training
   }
 `;
 

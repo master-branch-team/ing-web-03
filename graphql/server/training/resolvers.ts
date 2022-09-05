@@ -56,8 +56,10 @@ const TrainingResolvers: Resolver = {
     createTraining: async (parent, args) => {
       const newTraining = await prisma.training.create({
         data: {
-          name: args.data.name,
-          description: args.data.description,
+          ...args.data,
+          courses: {
+            connect: args.courses_ids.map((id: String) => ({ id })),
+          },
         },
       });
       return newTraining;
@@ -81,6 +83,34 @@ const TrainingResolvers: Resolver = {
       });
 
       return deletedTraining;
+    },
+    addCourses: async (parent, args) => {
+      const updatedTraining = await prisma.training.update({
+        where: {
+          id: args.id,
+        },
+        data: {
+          courses: {
+            connect: args.courses_ids.map((id: String) => ({ id })),
+          },
+        },
+      });
+
+      return updatedTraining;
+    },
+    removeCourses: async (parent, args) => {
+      const updatedTraining = await prisma.training.update({
+        where: {
+          id: args.id,
+        },
+        data: {
+          courses: {
+            disconnect: args.courses_ids.map((id: String) => ({ id })),
+          },
+        },
+      });
+
+      return updatedTraining;
     },
   },
 };
