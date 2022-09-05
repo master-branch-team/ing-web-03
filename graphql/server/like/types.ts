@@ -12,11 +12,6 @@ const LikeTypes = gql`
     note_id: String!
   }
 
-  input LikeUpdateInput {
-    user_id: String
-    note_id: String
-  }
-
   type Query {
     getLike(id: String): Like
     getLikes: [Like]
@@ -24,7 +19,6 @@ const LikeTypes = gql`
 
   type Mutation {
     createLike(data: LikeCreateInput): Like
-    updateLike(id: String, data: LikeUpdateInput): Like
     deleteLike(id: String): Like
   }
 `;
