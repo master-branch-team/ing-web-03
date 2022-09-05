@@ -114,7 +114,7 @@ const UserResolvers: Resolver = {
       });
       return deletedUser;
     },
-    addTrainings: async (parent, args) => {
+    addTrainingsToUser: async (parent, args) => {
       const updatedUser = await prisma.user.update({
         where: {
           id: args.id,
@@ -127,7 +127,7 @@ const UserResolvers: Resolver = {
       });
       return updatedUser;
     },
-    removeTrainings: async (parent, args) => {
+    removeTrainingsFromUser: async (parent, args) => {
       const updatedUser = await prisma.user.update({
         where: {
           id: args.id,

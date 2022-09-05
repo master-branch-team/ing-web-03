@@ -29,8 +29,8 @@ const TrainingTypes = gql`
     createTraining(data: TrainingCreateInput, courses_ids: [String]): Training
     updateTraining(id: String, data: TrainingUpdateInput): Training
     deleteTraining(id: String): Training
-    addCourses(id: String, courses_ids: [String]): Training
-    removeCourses(id: String, courses_ids: [String]): Training
+    addCoursesToTraining(id: String, courses_ids: [String]): Training
+    removeCoursesFromTraining(id: String, courses_ids: [String]): Training
   }
 `;
 

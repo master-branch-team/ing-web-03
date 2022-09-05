@@ -45,8 +45,8 @@ const UserTypes = gql`
     createUser(data: UserCreateInput): User
     updateUser(id: String, data: UserUpdateInput): User
     deleteUser(id: String): User
-    addTrainings(id: String, trainings_ids: [String]): User
-    removeTrainings(id: String, trainings_ids: [String]): User
+    addTrainingsToUser(id: String, trainings_ids: [String]): User
+    removeTrainingsFromUser(id: String, trainings_ids: [String]): User
   }
 `;
 
