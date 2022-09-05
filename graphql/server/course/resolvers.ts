@@ -79,7 +79,7 @@ const CourseResolvers: Resolver = {
       });
       return deletedCourse;
     },
-    addTrainings: async (parent, args) => {
+    addTrainingsToCourse: async (parent, args) => {
       const updatedCourse = await prisma.course.update({
         where: { id: args.id },
         data: {
@@ -90,7 +90,7 @@ const CourseResolvers: Resolver = {
       });
       return updatedCourse;
     },
-    removeTrainings: async (parent, args) => {
+    removeTrainingsFromCourse: async (parent, args) => {
       const updatedCourse = await prisma.course.update({
         where: { id: args.id },
         data: {
