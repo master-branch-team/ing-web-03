@@ -30,7 +30,7 @@ const TrainingResolvers: Resolver = {
     comments: async (parent, args) => {
       const comments = await prisma.comment.findMany({
         where: {
-          user_id: {
+          training_id: {
             equals: parent.id,
           },
         },
