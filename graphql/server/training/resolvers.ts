@@ -58,7 +58,7 @@ const TrainingResolvers: Resolver = {
         data: {
           ...args.data,
           courses: {
-            connect: args.courses_ids.map((id: String) => ({ id })),
+            connect: args.courses_ids.map((id: string) => ({ id })),
           },
         },
       });
@@ -91,7 +91,7 @@ const TrainingResolvers: Resolver = {
         },
         data: {
           courses: {
-            connect: args.courses_ids.map((id: String) => ({ id })),
+            connect: args.courses_ids.map((id: string) => ({ id })),
           },
         },
       });
@@ -105,7 +105,7 @@ const TrainingResolvers: Resolver = {
         },
         data: {
           courses: {
-            disconnect: args.courses_ids.map((id: String) => ({ id })),
+            disconnect: args.courses_ids.map((id: string) => ({ id })),
           },
         },
       });
