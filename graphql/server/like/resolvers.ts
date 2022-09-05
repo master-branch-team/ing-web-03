@@ -3,22 +3,22 @@ import { Resolver } from 'types';
 
 const LikeResolvers: Resolver = {
   Like: {
-    users: async (parent, args) => {
-      const users = await prisma.user.findUnique({
+    user: async (parent, args) => {
+      const user = await prisma.user.findUnique({
         where: {
           id: parent.user_id,
         },
       });
-      return users;
+      return user;
     },
 
-    notes: async (parent, args) => {
-      const notes = await prisma.note.findUnique({
+    note: async (parent, args) => {
+      const note = await prisma.note.findUnique({
         where: {
           id: parent.note_id,
         },
       });
-      return notes;
+      return note;
     },
   },
   Query: {
@@ -39,16 +39,7 @@ const LikeResolvers: Resolver = {
     createLike: async (parent, args) => {
       const newLike = await prisma.like.create({
         data: {
-          user: {
-            connect: {
-              id: args.data.user_id,
-            },
-          },
-          note: {
-            connect: {
-              id: args.data.note_id,
-            },
-          },
+          ...args.data,
         },
       });
       return newLike;
