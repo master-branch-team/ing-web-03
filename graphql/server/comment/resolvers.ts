@@ -3,22 +3,22 @@ import { Resolver } from 'types';
 
 const CommentResolvers: Resolver = {
   Comment: {
-    users: async (parent, args) => {
-      const users = await prisma.user.findUnique({
+    user: async (parent, args) => {
+      const user = await prisma.user.findUnique({
         where: {
           id: parent.user_id,
         },
       });
-      return users;
+      return user;
     },
 
-    trainings: async (parent, args) => {
-      const trainings = await prisma.training.findUnique({
+    training: async (parent, args) => {
+      const training = await prisma.training.findUnique({
         where: {
           id: parent.training_id,
         },
       });
-      return trainings;
+      return training;
     },
   },
   Query: {
@@ -39,17 +39,7 @@ const CommentResolvers: Resolver = {
     createComment: async (parent, args) => {
       const newComment = await prisma.comment.create({
         data: {
-          text: args.data.text,
-          user: {
-            connect: {
-              id: args.data.user_id,
-            },
-          },
-          trainig: {
-            connect: {
-              id: args.data.training_id,
-            },
-          },
+          ...args.data,
         },
       });
       return newComment;
