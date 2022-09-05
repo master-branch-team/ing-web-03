@@ -40,12 +40,10 @@ const UserTypeResolvers: Resolver = {
     updateUserType: async (parent, args) => {
       const updatedUserType = await prisma.userType.update({
         where: {
-          id: args.data.id,
+          id: args.id,
         },
         data: {
-          name: {
-            set: args.data.name,
-          },
+          ...args.data,
         },
       });
       return updatedUserType;
