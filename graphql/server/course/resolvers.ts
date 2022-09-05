@@ -54,7 +54,14 @@ const CourseResolvers: Resolver = {
   },
   Mutation: {
     createCourse: async (parent, args) => {
-      const newCourse = await prisma.course.create({ data: { ...args.data } });
+      const newCourse = await prisma.course.create({
+        data: {
+          ...args.data,
+          trainings: {
+            connect: args.trainings_ids.map((id: String) => ({ id })),
+          },
+        },
+      });
       return newCourse;
     },
     updateCourse: async (parent, args) => {
@@ -71,6 +78,28 @@ const CourseResolvers: Resolver = {
         },
       });
       return deletedCourse;
+    },
+    addTrainings: async (parent, args) => {
+      const updatedCourse = await prisma.course.update({
+        where: { id: args.id },
+        data: {
+          trainings: {
+            connect: args.trainings_ids.map((id: String) => ({ id })),
+          },
+        },
+      });
+      return updatedCourse;
+    },
+    removeTrainings: async (parent, args) => {
+      const updatedCourse = await prisma.course.update({
+        where: { id: args.id },
+        data: {
+          trainings: {
+            disconnect: args.trainings_ids.map((id: String) => ({ id })),
+          },
+        },
+      });
+      return updatedCourse;
     },
   },
 };

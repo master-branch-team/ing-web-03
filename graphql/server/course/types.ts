@@ -27,10 +27,13 @@ const CourseTypes = gql`
     getCourse(id: String): Course
     getCourses: [Course]
   }
+
   type Mutation {
-    createCourse(data: CourseCreateInput): Course
+    createCourse(data: CourseCreateInput, trainings_ids: [String]): Course
     updateCourse(id: String, data: CourseUpdateInput): Course
     deleteCourse(id: String): Course
+    addTrainings(id: String, trainings_ids: [String]): Training
+    removeTrainings(id: String, trainings_ids: [String]): Training
   }
 `;
 
